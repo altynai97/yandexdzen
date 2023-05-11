@@ -6,9 +6,6 @@ from drf_yasg import openapi
 from .views import CommentViewSet, PostViewSet, CategoryViewSet
 
 
-router = routers.DefaultRouter()
-router.register(r'posts', PostViewSet)
-
 schema_view = get_schema_view(
     openapi.Info(
         title="Post API",
