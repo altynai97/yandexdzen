@@ -1,9 +1,9 @@
 from rest_framework import viewsets
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .permissions import IsAuthorOrAllowAny
+from .permissions import IsAuthorOrAllowAny, CategoryPermission
 from .serializers import CommentSerializer, PostSerializer, CategorySerializer
 from .models import Comment, Post, Category
 
@@ -46,8 +46,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    authentication_classes = [SessionAuthentication, ]
-    permission_classes = [IsAuthorOrAllowAny, ]
+    permission_classes = [CategoryPermission, ]
 
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
